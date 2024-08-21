@@ -99,6 +99,16 @@ function revealEmptyCells(row, col) {
     }
 }
 
+function checkWinCondition(){
+          const totalCells=boardSize*boardSize;
+          const nonMineCells=totalCells-mineCount;
+if(cellsRevealed===nonMineCells){
+           alert('felicidades, has ganado!');
+           revealBoard();
+      }
+}
+
+
 function revealBoard() {
     for (let i = 0; i < boardSize; i++) {
         for (let j = 0; j < boardSize; j++) {
