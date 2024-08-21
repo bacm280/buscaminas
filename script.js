@@ -120,16 +120,7 @@ function revealBoard() {
         }
     }
 }
-function revealMines() {
-    for (let i = 0; i < boardSize; i++) {
-        for (let j = 0; j < boardSize; j++) {
-            const cell = board[i][j];
-            if (cell.dataset.mine) {
-                cell.classList.add('mine');
-            }
-        }
-    }
-}
+
 
 function initGame() {
     createBoard();
