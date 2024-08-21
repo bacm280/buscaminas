@@ -2,6 +2,7 @@ const boardSize = 8;
 const mineCount = 10;
 let board = [];
 let mineLocations = [];
+let cellsRevealed = 0;
 
 function createBoard() {
     const boardElement = document.getElementById('game-board');
@@ -46,14 +47,15 @@ function onCellClick(event) {
     } else {
         const mineCount = countMines(row, col);
         cell.classList.add('revealed');
+       cellsRevealed++;
         if (mineCount > 0) {
             cell.textContent = mineCount;
             cell.classList.add('number');
-           alert(' partida ganada');
+          
         } else {
             revealEmptyCells(row, col);
-            
-        }
+         }
+            checkWinCondition();
     }
 }
 
@@ -82,7 +84,9 @@ function revealEmptyCells(row, col) {
                 const cell = board[newRow][newCol];
                 if (!cell.classList.contains('revealed')) {
                     cell.classList.add('revealed');
+                    cellsRevealed++;
                     const mineCount = countMines(newRow, newCol);
+                   
                     if (mineCount > 0) {
                         cell.textContent = mineCount;
                         cell.classList.add('number');
