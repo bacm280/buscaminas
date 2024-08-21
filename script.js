@@ -50,8 +50,8 @@ function onCellClick(event) {
             cell.textContent = mineCount;
             cell.classList.add('number');
         } else {
-alert('partida ganada')
             revealEmptyCells(row, col);
+            alert('partida ganada')
         }
     }
 }
