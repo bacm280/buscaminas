@@ -49,9 +49,10 @@ function onCellClick(event) {
         if (mineCount > 0) {
             cell.textContent = mineCount;
             cell.classList.add('number');
+           alert(' partida ganada');
         } else {
             revealEmptyCells(row, col);
-            alert('partida ganada')
+            
         }
     }
 }
