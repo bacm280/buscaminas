@@ -7,7 +7,7 @@ let cellsRevealed = 0;
 function createBoard() {
     const boardElement = document.getElementById('game-board');
     boardElement.innerHTML = '';
-    
+
     for (let i = 0; i < boardSize; i++) {
         board[i] = [];
         for (let j = 0; j < boardSize; j++) {
@@ -40,6 +40,10 @@ function onCellClick(event) {
     const row = parseInt(cell.dataset.row);
     const col = parseInt(cell.dataset.col);
 
+    if (cell.classList.contains('revealed')) {
+        return; // Ignore clicks on already revealed cells
+    }
+
     if (cell.dataset.mine) {
         cell.classList.add('mine');
         alert('Game Over');
@@ -47,15 +51,14 @@ function onCellClick(event) {
     } else {
         const mineCount = countMines(row, col);
         cell.classList.add('revealed');
-       cellsRevealed++;
+        cellsRevealed++;
         if (mineCount > 0) {
             cell.textContent = mineCount;
             cell.classList.add('number');
-          
         } else {
             revealEmptyCells(row, col);
-         }
-            checkWinCondition();
+        }
+        checkWinCondition();
     }
 }
 
@@ -86,7 +89,7 @@ function revealEmptyCells(row, col) {
                     cell.classList.add('revealed');
                     cellsRevealed++;
                     const mineCount = countMines(newRow, newCol);
-                   
+
                     if (mineCount > 0) {
                         cell.textContent = mineCount;
                         cell.classList.add('number');
@@ -99,15 +102,14 @@ function revealEmptyCells(row, col) {
     }
 }
 
-function checkWinCondition(){
-          const totalCells=boardSize*boardSize;
-          const nonMineCells=totalCells-mineCount;
-if(cellsRevealed===nonMineCells){
-           alert('felicidades, has ganado!');
-           revealBoard();
-      }
+function checkWinCondition() {
+    const totalCells = boardSize * boardSize;
+    const nonMineCells = totalCells - mineCount;
+    if (cellsRevealed === nonMineCells) {
+        alert('Congratulations, you have won!');
+        revealBoard();
+    }
 }
-
 
 function revealBoard() {
     for (let i = 0; i < boardSize; i++) {
@@ -121,6 +123,16 @@ function revealBoard() {
     }
 }
 
+function revealMines() {
+    for (let i = 0; i < boardSize; i++) {
+        for (let j = 0; j < boardSize; j++) {
+            const cell = board[i][j];
+            if (cell.dataset.mine) {
+                cell.classList.add('mine');
+            }
+        }
+    }
+}
 
 function initGame() {
     createBoard();
@@ -128,7 +140,6 @@ function initGame() {
 }
 
 const revealMinesButton = document.getElementById('reveal-mines-button');
-    revealMinesButton.addEventListener('click', revealMines);
-}
+revealMinesButton.addEventListener('click', revealMines);
 
 window.onload = initGame;
