@@ -3,17 +3,52 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Buscaminas</title>
-    <link href="style.css" rel="stylesheet">
+    <title>Minesweeper</title>
+    <style>
+        #game-board {
+            display: grid;
+            grid-template-columns: repeat(8, 40px);
+            grid-template-rows: repeat(8, 40px);
+            gap: 2px;
+        }
+
+        .cell {
+            width: 40px;
+            height: 40px;
+            background-color: lightgray;
+            border: 1px solid #333;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 18px;
+            cursor: pointer;
+        }
+
+        .cell.revealed {
+            background-color: white;
+            cursor: default;
+        }
+
+        .cell.mine {
+            background-color: red;
+        }
+
+        .cell.number {
+            color: blue;
+        }
+
+        #reveal-mines-button {
+            margin-top: 20px;
+            padding: 10px 20px;
+            font-size: 16px;
+        }
+    </style>
 </head>
 <body>
-    <h1>Buscaminas</h1>
+    <h1>Minesweeper</h1>
     <div id="game-board"></div>
-    <script src="script.js"></script>
+    <button id="reveal-mines-button">Reveal Mines</button>
 
-<button id="reveal-mines-button">Mostrar Minas</button>
-<div id="game-board"></div>
-
+    <script src="minesweeper.js"></script>
 </body>
-
 </html>
