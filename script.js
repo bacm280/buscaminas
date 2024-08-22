@@ -106,7 +106,7 @@ function checkWinCondition() {
     const totalCells = boardSize * boardSize;
     const nonMineCells = totalCells - mineCount;
     if (cellsRevealed === nonMineCells) {
-        alert('Congratulations, you have won!');
+        alert('felicidades ganaste!');
         revealBoard();
     }
 }
