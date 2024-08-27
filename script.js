@@ -3,6 +3,8 @@ const mineCount = 10;
 let board = [];
 let mineLocations = [];
 let cellsRevealed = 0;
+let winCount = 0;
+let lossCount = 0;
 
 function createBoard() {
     const boardElement = document.getElementById('game-board');
@@ -41,13 +43,15 @@ function onCellClick(event) {
     const col = parseInt(cell.dataset.col);
 
     if (cell.classList.contains('revealed')) {
-        return; // Ignore clicks on already revealed cells
+        return; // Ignorar clics en celdas ya reveladas
     }
 
     if (cell.dataset.mine) {
         cell.classList.add('mine');
         alert('Game Over');
+        lossCount++;
         revealBoard();
+        updateScoreboard();
     } else {
         const mineCount = countMines(row, col);
         cell.classList.add('revealed');
@@ -106,8 +110,10 @@ function checkWinCondition() {
     const totalCells = boardSize * boardSize;
     const nonMineCells = totalCells - mineCount;
     if (cellsRevealed === nonMineCells) {
-        alert('felicidades ganaste!');
+        alert('¡Felicidades, ganaste!');
+        winCount++;
         revealBoard();
+        updateScoreboard();
     }
 }
 
@@ -134,6 +140,18 @@ function revealMines() {
     }
 }
 
+function resetGame() {
+    cellsRevealed = 0;
+    board = [];
+    mineLocations = [];
+    initGame();
+}
+
+function updateScoreboard() {
+    document.getElementById('win-count').textContent = winCount;
+    document.getElementById('loss-count').textContent = lossCount;
+}
+
 function initGame() {
     createBoard();
     placeMines();
@@ -142,4 +160,10 @@ function initGame() {
 const revealMinesButton = document.getElementById('reveal-mines-button');
 revealMinesButton.addEventListener('click', revealMines);
 
-window.onload = initGame;
+const resetButton = document.getElementById('reset-button');
+resetButton.addEventListener('click', resetGame);
+
+window.onload = () => {
+    initGame();
+    updateScoreboard();
+};
