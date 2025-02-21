@@ -48,6 +48,9 @@ function onCellClick(event) {
 
     if (cell.dataset.mine) {
         cell.classList.add('mine');
+        const explosionSound = document.getElementById('explosion-sound');
+        explosionSound.play(); 
+
         alert('Game Over');
         lossCount++;
         revealBoard();
