@@ -133,6 +133,10 @@ function revealBoard() {
 }
 
 function revealMines() {
+    // Reproducir el sonido de revelar minas
+    const revealSound = document.getElementById('reveal-sound');
+    revealSound.play(); // Reproduce el sonido
+
     for (let i = 0; i < boardSize; i++) {
         for (let j = 0; j < boardSize; j++) {
             const cell = board[i][j];
@@ -143,12 +147,19 @@ function revealMines() {
     }
 }
 
-function resetGame() {
-    cellsRevealed = 0;
-    board = [];
-    mineLocations = [];
-    initGame();
-}
+
+
+    function resetGame() {
+        // Reproducir el sonido de reinicio
+        const resetSound = document.getElementById('reset-sound');
+        resetSound.play(); // Repridooduce el son
+    
+        cellsRevealed = 0;
+        board = [];
+        mineLocations = [];
+        initGame();
+    }
+ 
 
 function updateScoreboard() {
     document.getElementById('win-count').textContent = winCount;
@@ -162,6 +173,7 @@ function initGame() {
 
 const revealMinesButton = document.getElementById('reveal-mines-button');
 revealMinesButton.addEventListener('click', revealMines);
+
 
 const resetButton = document.getElementById('reset-button');
 resetButton.addEventListener('click', resetGame);
