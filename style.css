@@ -3,103 +3,77 @@
 }
 
 body {
-  margin: 0 auto;
-  height: 100%;
+  margin: 0;
+  height: 100vh;
   display: flex;
   align-items: center;
-  font-family: monospace;
   justify-content: center;
-  background-color: #1d212b;
+  font-family: monospace;
+  background-color: #1e263b;
 }
 
-div {
-  position: relative;
-  width: 30vw;
-  height: 30vw;
-  line-height: 30vw;
-  text-align: center;
-  color: #252B37;
-  background-color: #151823;
-  animation: textColor 10s ease infinite;
-}
-div:after {
-  position: absolute;
-  content: "";
-  top: 5vw;
-  left: 0;
-  right: 0;
-  z-index: -1;
-  height: 100%;
-  width: 100%;
-  margin: 0 auto;
-  transform: scale(0.75);
-  -webkit-filter: blur(5vw);
-  -moz-filter: blur(5vw);
-  -ms-filter: blur(5vw);
-  filter: blur(5vw);
-  background: linear-gradient(270deg, #0fffc1, #7e0fff);
-  background-size: 200% 200%;
-  animation: animateGlow 10s ease infinite;
-}
-@keyframes animateGlow {
-  0% {
-    background-position: 0% 50%;
-  }
-  50% {
-    background-position: 100% 50%;
-  }
-  100% {
-    background-position: 0% 50%;
-  }
-}
-@keyframes textColor {
-  0% {
-    color: #7e0fff;
-  }
-  50% {
-    color: #0fffc1;
-  }
-  100% {
-    color: #7e0fff;
-  }
-}
-
-
-h1 {
-    color: #333;
+#game-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px; /* Espacio entre el tablero y los controles */
 }
 
 #game-board {
-    display: grid;
-    grid-template-columns: repeat(8, 40px);
-    grid-template-rows: repeat(8, 40px);
-    gap: 2px;
-    justify-content: center;
-    margin: 20px auto;
+  display: grid;
+  grid-template-columns: repeat(8, 40px);
+  grid-template-rows: repeat(8, 40px);
+  gap: 2px;
 }
 
 .cell {
-    width: 40px;
-    height: 40px;
-    background-color: #ccc;
-    border: 1px solid #999;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 18px;
-    cursor: pointer;
+  width: 40px;
+  height: 40px;
+  background-color: #ccc;
+  border: 1px solid #080808;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  cursor: pointer;
 }
 
 .cell.revealed {
-    background-color: #eee;
-    cursor: default;
+  background-color: #08da24;
+  cursor: default;
 }
 
 .cell.mine {
-    background-color: red;
-    color: white;
+  background-color: red;
+  color: white;
 }
 
 .cell.number {
-    background-color: #ddd;
+  background-color: #ddd;
+}
+
+#controls {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px; /* Espacio entre los botones y el contador */
+}
+
+#scoreboard {
+  color: white;
+  font-size: 16px;
+}
+
+button {
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 5px;
+}
+
+button:hover {
+  background-color: #45a049;
 }
