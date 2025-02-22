@@ -68,7 +68,8 @@ function onCellClick(event) {
         checkWinCondition();
     }
 }
-
+  
+    
 function countMines(row, col) {
     let count = 0;
     for (let i = -1; i <= 1; i++) {
@@ -133,8 +134,8 @@ function revealBoard() {
 }
 
 function revealMines() {
-    // Reproducir el sonido de revelar minas
     const revealSound = document.getElementById('reveal-sound');
+    revealSound.volume = 1.0; // Ajusta el volumen
     revealSound.play(); // Reproduce el sonido
 
     for (let i = 0; i < boardSize; i++) {
@@ -147,19 +148,16 @@ function revealMines() {
     }
 }
 
+function resetGame() {
+    const resetSound = document.getElementById('reset-sound');
+    resetSound.volume = 1.0; // Ajusta el volumen
+    resetSound.play(); // Reproduce el sonido
 
-
-    function resetGame() {
-        // Reproducir el sonido de reinicio
-        const resetSound = document.getElementById('reset-sound');
-        resetSound.play(); // Repridooduce el son
-    
-        cellsRevealed = 0;
-        board = [];
-        mineLocations = [];
-        initGame();
-    }
- 
+    cellsRevealed = 0;
+    board = [];
+    mineLocations = [];
+    initGame();
+}
 
 function updateScoreboard() {
     document.getElementById('win-count').textContent = winCount;
@@ -171,14 +169,45 @@ function initGame() {
     placeMines();
 }
 
+let isVolumeOn = true;
+
+const volumeSlider = document.getElementById('volume-slider');
+const volumeIcon = document.querySelector('#volume-control span');
+
+function adjustVolume() {
+    const volume = volumeSlider.value;
+    const explosionSound = document.getElementById('explosion-sound');
+    const resetSound = document.getElementById('reset-sound');
+    const revealSound = document.getElementById('reveal-sound');
+
+    explosionSound.volume = volume;
+    resetSound.volume = volume;
+    revealSound.volume = volume;
+
+    if (volume == 0) {
+        volumeIcon.textContent = '🔇';
+    } else {
+        volumeIcon.textContent = '🔊';
+    }
+}
+
+volumeSlider.addEventListener('input', adjustVolume);
+
+
+
+
+
 const revealMinesButton = document.getElementById('reveal-mines-button');
 revealMinesButton.addEventListener('click', revealMines);
-
 
 const resetButton = document.getElementById('reset-button');
 resetButton.addEventListener('click', resetGame);
 
 window.onload = () => {
+     // Desbloquear la reproducción de sonidos
+     const unlockSound = document.createElement('audio');
+     unlockSound.src = 'sounds/unlock.mp3'; // Archivo de sonido silencioso
+     unlockSound.play();
     initGame();
     updateScoreboard();
 };
