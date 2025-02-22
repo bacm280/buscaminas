@@ -16,44 +16,104 @@
         .cell {
             width: 40px;
             height: 40px;
-            background-color: lightgray;
+            background-color: #ccc;
             border: 1px solid #333;
             display: flex;
-            justify-content: center;
             align-items: center;
+            justify-content: center;
             font-size: 18px;
             cursor: pointer;
+            position: relative;
+            transform-style: preserve-3d;
+            transition: transform 0.2s, box-shadow 0.2s;
+            box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.3);
+        }
+
+        .cell:hover {
+            transform: translateY(-2px) rotateX(10deg);
+            box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.5);
         }
 
         .cell.revealed {
-            background-color: rgb(61, 108, 129);
+            background-color: white;
             cursor: default;
+            transform: translateY(0);
+            box-shadow: none;
         }
 
         .cell.mine {
             background-color: red;
+            color: white;
         }
 
         .cell.number {
-            color: blue;
+            background-color: #ddd;
+        }
+
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            position: relative;
+            transform-style: preserve-3d;
+            transition: transform 0.2s, box-shadow 0.2s;
+            box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.3);
+        }
+
+        button:hover {
+            transform: translateY(-2px) rotateX(10deg);
+            box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.5);
+        }
+
+        button:active {
+            transform: translateY(0);
+            box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
         }
     </style>
 </head>
 <body>
+    <!-- Canvas para el fondo animado -->
+    <canvas id="background-canvas"></canvas>
+
+    <!-- Contenedor del juego -->
     <div id="game-container">
         <div id="game-board"></div>
         <div id="controls">
             <button id="reveal-mines-button">Mostrar Minas</button>
             <button id="reset-button">Reiniciar Juego</button>
+            <div id="volume-control">
+                <span>🔊</span>
+                <input type="range" id="volume-slider" min="0" max="1" step="0.1" value="1">
+            </div>
             <div id="scoreboard">
                 Victorias: <span id="win-count">0</span> | Derrotas: <span id="loss-count">0</span>
             </div>
         </div>
+        </div>
     </div>
-    <!-- Elemento de audio para el sonido de explosión -->
-    <audio id="explosion-sound" src="sound/TMaDth00.wav"></audio>
-    <audio id="reset-sound" src="sound/asimegusta.wav"></audio>
-    <audio id="reveal-sound"src="sound/notengotiempoparajuegos.wav"></audio>
+    
+    <!-- Elementos de audio -->
+    <audio id="explosion-sound">
+        <source src="sounds/explosion.mp3" type="audio/mpeg">
+        <source src="sounds/explosion.ogg" type="audio/ogg">
+        Tu navegador no soporta el elemento de audio.
+    </audio>
+    <audio id="reset-sound">
+        <source src="sounds/asimegusta.wav" type="audio/mpeg">
+        <source src="sounds/asimegusta.wav" type="audio/ogg">
+        Tu navegador no soporta el elemento de audio.
+    </audio>
+    <audio id="reveal-sound">
+        <source src="sounds/notengotiempoparajuegos.wav" type="audio/mpeg">
+        <source src="sounds/notengotiempoparajuegos.ogg" type="audio/ogg">
+        Tu navegador no soporta el elemento de audio.
+    </audio>
+    
     <script src="script.js"></script>
+    <script src="background.js"></script>
 </body>
 </html>
